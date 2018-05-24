@@ -24,7 +24,7 @@ type Service struct {
 
 func Create() *Service {
 	item := new(Service)
-	item.cache = cache.Create(10)
+	item.cache = cache.Create(5)
 	return item
 }
 

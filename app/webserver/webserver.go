@@ -5,6 +5,7 @@ import (
 	"log"
 	"html/template"
 	"github.com/chabberwock/userip/app/geoip"
+	"strings"
 )
 
 type indexData struct {
@@ -28,9 +29,10 @@ func (server Server) Start() {
 func (server Server) indexHandler(writer http.ResponseWriter, request *http.Request) {
 	if request.URL.Path == "/" {
 		tpl := template.Must(template.ParseFiles("app/webserver/index.html"))
-		country, err := server.GeoIp.CountryByIp(request.RemoteAddr)
+		addr := strings.Split(request.RemoteAddr, ":")
+		country, err := server.GeoIp.CountryByIp(addr[0])
 		//country, err := server.GeoIp.CountryByIp("95.31.50.154")
-		data := indexData{Ip: request.RemoteAddr, Country: country, Providers: server.GeoIp.GetProviderData()}
+		data := indexData{Ip: addr[0], Country: country, Providers: server.GeoIp.GetProviderData()}
 		if err != nil {
 			data.Error = err.Error()
 		}
