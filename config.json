@@ -1,0 +1,14 @@
+{
+  "Bind": ":8080",
+  "TemplatePath": "app/webserver",
+  "CacheTTL": 5,
+  "IpStack": {
+    "RequestLimit": 5,
+    "AccessKey": "b2a856f222be417cb767f831cbca347d",
+    "Enabled": true
+  },
+  "Nekudo": {
+    "RequestLimit": 5,
+    "Enabled": true
+  }
+}

@@ -19,6 +19,7 @@ type indexData struct {
 type Server struct {
 	GeoIp *geoip.Service
 	Addr string
+	TemplatePath string
 }
 
 func (server Server) Start() {
@@ -28,7 +29,7 @@ func (server Server) Start() {
 
 func (server Server) indexHandler(writer http.ResponseWriter, request *http.Request) {
 	if request.URL.Path == "/" {
-		tpl := template.Must(template.ParseFiles("app/webserver/index.html"))
+		tpl := template.Must(template.ParseFiles(server.TemplatePath + "/index.html"))
 		addr := strings.Split(request.RemoteAddr, ":")
 		country, err := server.GeoIp.CountryByIp(addr[0])
 		//country, err := server.GeoIp.CountryByIp("95.31.50.154")

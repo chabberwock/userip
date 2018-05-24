@@ -22,9 +22,9 @@ type Service struct {
 	cache *cache.Service
 }
 
-func Create() *Service {
+func Create(TTL int64) *Service {
 	item := new(Service)
-	item.cache = cache.Create(5)
+	item.cache = cache.Create(TTL)
 	return item
 }
 
