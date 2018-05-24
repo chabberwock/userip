@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User IP</title>
+</head>
+<body>
+<p>Your IP: {{.Ip}}</p>
+<p>Your Country: {{.Country}}</p>
+<p>{{.Error}}</p>
+
+<p>Provider statistics</p>
+{{range $s := .Providers}}
+    <p>{{$s.Name}}: {{$s.Hits}}</p>
+{{end}}
+
+</body>
+</html>
