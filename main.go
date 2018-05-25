@@ -1,3 +1,8 @@
+/*
+Test task for Searchinform
+Author: Alexandr Makarov
+Email: notengine@gmail.com
+ */
 package main
 
 import (
