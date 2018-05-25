@@ -31,9 +31,14 @@ func (server Server) indexHandler(writer http.ResponseWriter, request *http.Requ
 	if request.URL.Path == "/" {
 		tpl := template.Must(template.ParseFiles(server.TemplatePath + "/index.html"))
 		addr := strings.Split(request.RemoteAddr, ":")
-		country, err := server.GeoIp.CountryByIp(addr[0])
+		ip := addr[0]
+		if request.URL.Query().Get("ip") != "" {
+			ip = request.URL.Query().Get("ip")
+		}
+		country, err := server.GeoIp.CountryByIp(ip)
+
 		//country, err := server.GeoIp.CountryByIp("95.31.50.154")
-		data := indexData{Ip: addr[0], Country: country, Providers: server.GeoIp.GetProviderData()}
+		data := indexData{Ip: ip, Country: country, Providers: server.GeoIp.GetProviderData()}
 		if err != nil {
 			data.Error = err.Error()
 		}
